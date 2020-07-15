@@ -1,4 +1,4 @@
-package lgwarlick.recipe;
+package lgwarlick;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
