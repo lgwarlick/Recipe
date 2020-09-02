@@ -1,6 +1,8 @@
 package lgwarlick.controllers;
 
 import lgwarlick.commands.IngredientCommand;
+import lgwarlick.commands.RecipeCommand;
+import lgwarlick.commands.UnitOfMeasureCommand;
 import lgwarlick.services.IngredientService;
 import lgwarlick.services.RecipeService;
 import lgwarlick.services.UnitOfMeasureService;
@@ -41,6 +43,22 @@ public class IngredientController {
                                        @PathVariable String id, Model model) {
         model.addAttribute("ingredient", ingredientService.findByRecipeIdAndIngredientId(Long.valueOf(recipeId), Long.valueOf(id)));
         return "recipe/ingredient/show";
+    }
+
+    @GetMapping
+    @RequestMapping("recipe/{recipeId}/ingredient/new")
+    public String newRecipe(@PathVariable String recipeId, Model model){
+        RecipeCommand recipeCommand = recipeService.findCommandById(Long.valueOf(recipeId));
+
+        IngredientCommand ingredientCommand = new IngredientCommand();
+        ingredientCommand.setRecipeId(Long.valueOf(recipeId));
+        model.addAttribute("ingredient", ingredientCommand);
+
+        ingredientCommand.setUom(new UnitOfMeasureCommand());
+
+        model.addAttribute("uomList", unitOfMeasureService.listAllUoms());
+
+        return "recipe/ingredient/ingredientform";
     }
 
     @GetMapping
