@@ -15,7 +15,7 @@ import java.util.Optional;
 
 @Slf4j
 @Service
-public class IngredientServiceImpl implements IngredientService{
+public class IngredientServiceImpl implements IngredientService {
 
     private final IngredientToIngredientCommand ingredientToIngredientCommand;
     private final IngredientCommandToIngredient ingredientCommandToIngredient;
@@ -33,7 +33,7 @@ public class IngredientServiceImpl implements IngredientService{
     }
 
     @Override
-    public IngredientCommand findByRecipeIdAndIngredientId(long recipeId, long ingredientId) {
+    public IngredientCommand findByRecipeIdAndIngredientId(Long recipeId, Long ingredientId) {
 
 
         Optional<Recipe> recipeOptional = recipeRepository.findById(recipeId);
@@ -102,6 +102,41 @@ public class IngredientServiceImpl implements IngredientService{
             }
 
             return ingredientToIngredientCommand.convert(savedIngredientOptional.get());
+        }
+    }
+
+    @Override
+    public void deleteById(Long recipeId, Long idToDelete) {
+        log.debug("Deleting ingredient: " + recipeId + ":" + idToDelete);
+
+        Optional<Recipe> recipeOptional = recipeRepository.findById(recipeId);
+
+        if (recipeOptional.isPresent()) {
+            Recipe recipe = recipeOptional.get();
+            log.debug("found recipe");
+
+            //stream the recipe ingredients to find the desired ingredient
+            Optional<Ingredient> ingredientOptional = recipe
+                    .getIngredients()
+                    .stream()
+                    .filter(ingredient -> ingredient.getId().equals(idToDelete))
+                    .findFirst();
+
+            if (ingredientOptional.isPresent()) {
+                log.debug("found ingredient");
+
+                Ingredient ingredientToDelete = ingredientOptional.get();
+                //remove any recipe association the ingredient has,
+                //then hibernate will delete it from the database
+                ingredientToDelete.setRecipe(null);
+                //remove that ingredient from the recipe
+                recipe.getIngredients().remove(ingredientOptional.get());
+                //finally update the recipe
+                recipeRepository.save(recipe);
+            }
+
+        } else {
+            log.debug("Recipe Id Not Found for id: " + recipeId);
         }
     }
 }
