@@ -26,6 +26,8 @@ public class RecipeController {
     public String showById(@PathVariable String id, Model model) {
         model.addAttribute("recipe", recipeService.findById(Long.valueOf(id)));
 
+        log.debug("showing recipe: " + id);
+
         return "recipe/show";
     }
 
@@ -33,6 +35,8 @@ public class RecipeController {
     @GetMapping("/recipe/new")
     public String newRecipe(Model model){
         model.addAttribute("recipe", new RecipeCommand());
+
+        log.debug("making new recipe");
 
         return "recipe/recipeform";
     }
