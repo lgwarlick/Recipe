@@ -3,6 +3,7 @@ package lgwarlick.services;
 import lgwarlick.converters.RecipeCommandToRecipe;
 import lgwarlick.converters.RecipeToRecipeCommand;
 import lgwarlick.domain.Recipe;
+import lgwarlick.exceptions.NotFoundException;
 import lgwarlick.repositories.RecipeRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,6 +15,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.util.AssertionErrors.assertNotNull;
 
@@ -83,4 +85,22 @@ class RecipeServiceImplTest {
         //then
         verify(recipeRepository,times(1)).deleteById(anyLong());
     }
+
+    /**
+     * Exception handling tests
+     */
+
+    @Test
+    public void getRecipeByIdTestNotFound() {
+
+        Optional<Recipe> recipeOptional = Optional.empty();
+
+        when(recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
+
+        assertThrows(NotFoundException.class,
+            ()->{
+                Recipe returnedRecipe = recipeService.findById(1L);
+            });
+    }
+    
 }
