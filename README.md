@@ -1,2 +1,2 @@
 # Recipe
-A web based application built using Spring MVC show casing CRUD operations
+A web based application built using Spring MVC and showcasing CRUD operations
