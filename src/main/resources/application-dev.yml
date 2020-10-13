@@ -7,10 +7,25 @@ spring:
     url: jdbc:mysql://localhost:3306/lgwarlick_dev
     username: lgwarlick_dev_user
     password: lgwarlick
+    platform: mysql
   jpa:
     hibernate:
       ddl-auto: validate
-    database-platform: org.hibernate.dalect.MySQL5InnoDBDialect
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     database: mysql
-    show-sql: true
     # show-sql will only be true for dev profile
+    show-sql: true
+
+# only needs to be run once to generate the lgwarlick_database_create.sql file
+# commented out unless that file needs to be created
+#    properties:
+#      javax:
+#        persistence:
+#          schema-generation:
+#            # reflects domain entities
+#            create-source: metadata
+#            scripts:
+#              action: create
+#              # generates file in project root
+#              # that file will then be run inside sql
+ #             create-target: lgwarlick_database_create.sql
