@@ -1,0 +1,16 @@
+spring:
+  # Configuration for development profile
+  #
+  # identifying the connection and the login credentials
+  # note: password would typically be passed in as an environment variable
+  datasource:
+    url: jdbc:mysql://localhost:3306/lgwarlick_dev
+    username: lgwarlick_dev_user
+    password: lgwarlick
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    database-platform: org.hibernate.dalect.MySQL5InnoDBDialect
+    database: mysql
+    show-sql: true
+    # show-sql will only be true for dev profile

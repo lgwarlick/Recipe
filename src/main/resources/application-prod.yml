@@ -1,0 +1,16 @@
+spring:
+  # Configuration for production profile
+  #
+  # identifying the connection and the login credentials
+  # note: password would typically be passed in as an environment variable
+  datasource:
+    url: jdbc:mysql://localhost:3306/lgwarlick_prod
+    username: lgwarlick_prod_user
+    password: lgwarlick
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    database-platform: org.hibernate.dalect.MySQL5InnoDBDialect
+    database: mysql
+    show-sql: false
+    # show-sql will only be true for dev profile
