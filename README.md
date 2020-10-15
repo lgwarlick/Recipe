@@ -4,17 +4,13 @@
 
 A web based application built using Spring MVC and showcasing CRUD operations.
 
-Back end:
+<h1>Back end:</h1>
+<p> Written in Java and built with Spring MVC
+<p> Showcasing dependency injection*
+<p> Full use of CRUD capabilities (via Spring CrudRepository interface)
+<p> Spring profiles allow data persistence in either H2 database or MySQL database
 
-Written in Java and built with Spring MVC
-
-Showcasing dependency injection
-
-Full use of CRUD capabilities (via Spring CrudRepository interface)
-
-Spring profiles allow data persistence in either H2 database or MySQL database
-
-Front end:
-Bootstrap used fir CSS formatting
-jQuery used for mouse-over effects
-Thymeleaf used for template rendering
+<h1>Front end:</h1>
+<p> Bootstrap used for CSS formatting
+<p> jQuery used for mouse-over effects
+<p> Thymeleaf used for template rendering
